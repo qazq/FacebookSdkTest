@@ -1,9 +1,11 @@
 package com.jackie.facebooktest;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,6 +24,16 @@ public class MyLocation {
         locationResult=result;
         if(lm==null)
             lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+		// List all providers:
+		List<String> providers = lm.getAllProviders();
+		for (String provider : providers) {
+			android.util.Log.d("qazq", "provider = "+ provider);
+		}
+
+		Criteria criteria = new Criteria();
+		String bestProvider = lm.getBestProvider(criteria, false);
+		android.util.Log.d("qazq", "bestProvider = "+ bestProvider);
 
         //exceptions will be thrown if provider is not permitted.
         try{gps_enabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);}catch(Exception ex){}
