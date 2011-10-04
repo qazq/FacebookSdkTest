@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.Facebook.DialogListener;
+import com.jackie.facebooktest.MyLocation.LocationResult;
 
 
 public class FacebookSdkTest extends Activity {
@@ -132,7 +134,17 @@ public class FacebookSdkTest extends Activity {
         });
         
         Log.d("qazq", "<<<<<<<<<<<<<<<<<<<<");
+        
+        myLocation.getLocation(this, locationResult);
     }
+
+    MyLocation myLocation = new MyLocation();
+    public LocationResult locationResult = new LocationResult() {
+        @Override
+        public void gotLocation(Location location) {
+            Log.d("qazq", "location = " + location);
+        }
+    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
